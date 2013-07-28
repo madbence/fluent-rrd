@@ -46,6 +46,16 @@ function parseTime(str) {
   return parseInt(m[1])*base;
 }
 
+function legend(str) {
+  if(str.length > 10) {
+    return str.substr(0, 10);
+  }
+  while(str.length < 10) {
+    str += ' ';
+  }
+  return str;
+}
+
 RRD.prototype.step = function(step) {
   this._step = typeof step == 'string' ? parseTime(step) : step;
   return this;
