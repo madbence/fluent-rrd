@@ -1,4 +1,4 @@
-var RRD = require('./index.js');
+var RRD = require('./index.js').RRD;
 
 var rrd = new RRD('foo')
   .step('1s')
@@ -33,6 +33,8 @@ rrd.graph()
   .title('Example graph with random values')
   .watermark('%a')
   .vlabel('Awesomeness')
+  .font('DEFAULT', 8, 'Anonymous Pro')
+  .font('TITLE', 12, 'Anonymous Pro')
   .smooth('foo', '10s')
     .as('foo_smooth')
   .smooth('bar', '3m')
