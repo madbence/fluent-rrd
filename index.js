@@ -8,7 +8,7 @@ function RRD(file) {
 }
 
 function parseTime(str) {
-  var m = str.match(/^(\d+)(\w+)$/);
+  var m = str.match(/^-?(\d+)(\w+)$/);
   var base;
   switch(m[2]){
     case 's':
