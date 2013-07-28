@@ -217,6 +217,10 @@ Graph.prototype.slope = function(slope) {
   this._slope = slope === undefined ? true : slope;
   return this;
 }
+Graph.prototype.watermark = function(str) {
+  this._watermark = str;
+  return this;
+}
 Graph.prototype.create = function(file) {
   var defs = this._rrd._dataSources.map(function(ds) {
     return 'DEF:' + ds.name + '=' + this._rrd._file + ':' + ds.name + ':AVERAGE';
@@ -229,6 +233,10 @@ Graph.prototype.create = function(file) {
     'graph', file,
     '--start', this._start];
   this._slope && params.push('--slope-mode');
+  if(this._watermark) {
+    params.push('--watermark');
+    params.push(this._watermark);
+  }
   var lines = this.lines;
   if(this._drawTable) {
     params.push('COMMENT:           ');
