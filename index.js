@@ -192,6 +192,7 @@ Graph.prototype.end = Graph.prototype.to = function(time) {
 }
 Graph.prototype.smooth = function(name, factor) {
   var self = this;
+  factor = typeof factor == 'string' ? parseTime(factor) : factor;
   return {
     as: function(newName) {
       self.cdefs.push('CDEF:'+ newName + '=' + name + ',' + factor + ',TREND');
