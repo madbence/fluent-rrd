@@ -221,6 +221,10 @@ Graph.prototype.watermark = function(str) {
   this._watermark = str;
   return this;
 }
+Graph.prototype.vlabel = function(str) {
+  this._vlabel = str;
+  return this;
+}
 Graph.prototype.create = function(file) {
   var defs = this._rrd._dataSources.map(function(ds) {
     return 'DEF:' + ds.name + '=' + this._rrd._file + ':' + ds.name + ':AVERAGE';
@@ -236,6 +240,10 @@ Graph.prototype.create = function(file) {
   if(this._watermark) {
     params.push('--watermark');
     params.push(this._watermark);
+  }
+  if(this._vlabel) {
+    params.push('--vertical-label');
+    params.push(this._vlabel);
   }
   var lines = this.lines;
   if(this._drawTable) {
