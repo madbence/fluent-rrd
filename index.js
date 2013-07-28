@@ -139,10 +139,12 @@ RRD.prototype.create = function(opt, cb) {
       return rra[prop];
     }).join(':');
   })
-  var rrd = spawn('rrdtool',
-    ['create', this._file,
+  var params = [
+    'create', this._file,
     '--step', this._step]
-    .concat(ds, rra));
+    .concat(ds, rra);
+
+  var rrd = spawn('rrdtool', params);
   rrd.on('exit', function(status, sig) {
     if(status || sig) {
       return cb && cb({
@@ -163,9 +165,9 @@ RRD.prototype.update = function(spec, cb) {
     if(status || sig) {
       return cb && cb({
         status: status, sig: sig
-      });
+      }, params);
     }
-    cb();
+    cb(null, params);
   })
 }
 
