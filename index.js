@@ -133,10 +133,6 @@ RRD.prototype.create = function(opt, cb) {
     ['create', this._file,
     '--step', this._step]
     .concat(ds, rra));
-  if(opt.pipe) {
-    rrd.stdout.pipe(process.stdout);
-    rrd.stderr.pipe(process.stderr);
-  }
   rrd.on('exit', function(status, sig) {
     if(status || sig) {
       return cb && cb({
