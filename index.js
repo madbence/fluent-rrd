@@ -210,7 +210,7 @@ Graph.prototype.title = function(title) {
   return this;
 }
 Graph.prototype.line = function(name, color) {
-  this.lines.push('LINE:' + name + color);
+  this.lines.push('LINE:' + name + color + ':' + legend(name));
   return this;
 }
 Graph.prototype.create = function(file) {
