@@ -139,7 +139,7 @@ RRD.prototype.create = function(opt, cb) {
         status: status, sig: sig
       });
     }
-    return cb();
+    cb();
   });
 }
 
