@@ -241,6 +241,10 @@ Graph.prototype.create = function(file) {
     params.push('--watermark');
     params.push(this._watermark);
   }
+  if(this._title) {
+    params.push('--title');
+    params.push(this._title);
+  }
   if(this._vlabel) {
     params.push('--vertical-label');
     params.push(this._vlabel);
