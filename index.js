@@ -200,6 +200,10 @@ Graph.prototype.smooth = function(name, factor) {
     }
   };
 }
+Graph.prototype.table = function() {
+  this._drawTable = true;
+  return this;
+}
 
 Graph.prototype.title = function(title) {
   this._title = title;
@@ -217,12 +221,39 @@ Graph.prototype.create = function(file) {
     return cdef;
   });
   console.log(defs);
-  var rrd = spawn('rrdtool',
-    ['graph', file,
-    '--start', this._start]
+  var params = [
+    'graph', file,
+    '--start', this._start];
+  this._slope && params.push('--slope-mode');
+  var lines = this.lines;
+  if(this._drawTable) {
+    params.push('COMMENT:           ');
+    params.push('COMMENT:        Cur');
+    params.push('COMMENT:        Avg');
+    params.push('COMMENT:        Max');
+    params.push('COMMENT:        Min\\l');
+    lines = lines.reduce(function(lines, line) {
+      console.log(line);
+      var df = line.match(/^.*:(.*?)#/)[1];
+      cdefs.push('VDEF:' + df + '_cur=' + df +',LAST');
+      cdefs.push('VDEF:' + df + '_avg=' + df +',AVERAGE');
+      cdefs.push('VDEF:' + df + '_max=' + df +',MAXIMUM');
+      cdefs.push('VDEF:' + df + '_min=' + df +',MINIMUM');
+      lines.push(line);
+      lines.push('GPRINT:' + df + '_cur:%10.2lf%S');
+      lines.push('GPRINT:' + df + '_avg:%10.2lf%S');
+      lines.push('GPRINT:' + df + '_max:%10.2lf%S');
+      lines.push('GPRINT:' + df + '_min:%10.2lf%S\\l');
+      return lines;
+    }, [])
+  }
+  params = params
     .concat(defs)
-    .concat(this.cdefs)
-    .concat(this.lines));
+    .concat(cdefs)
+    .concat(lines)
+  var rrd = spawn('rrdtool', params);
+  console.log(params);
+  rrd.stderr.pipe(process.stderr);
 }
 
 module.exports = RRD;
