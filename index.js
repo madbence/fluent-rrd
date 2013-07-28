@@ -141,6 +141,7 @@ RRD.prototype.create = function(opt, cb) {
     }
     cb();
   });
+  return this;
 }
 
 RRD.prototype.update = function(spec, cb) {
