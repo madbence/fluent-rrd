@@ -213,6 +213,10 @@ Graph.prototype.line = function(name, color) {
   this.lines.push('LINE:' + name + color + ':' + legend(name));
   return this;
 }
+Graph.prototype.slope = function(slope) {
+  this._slope = slope === undefined ? true : slope;
+  return this;
+}
 Graph.prototype.create = function(file) {
   var defs = this._rrd._dataSources.map(function(ds) {
     return 'DEF:' + ds.name + '=' + this._rrd._file + ':' + ds.name + ':AVERAGE';
