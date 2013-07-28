@@ -158,4 +158,57 @@ RRD.prototype.update = function(spec, cb) {
   })
 }
 
+RRD.prototype.graph = function() {
+  return new Graph(this);
+}
+
+function Graph(rrd) {
+  this._rrd = rrd;
+  this.lines = [];
+  this.cdefs = [];
+}
+
+Graph.prototype.start = Graph.prototype.from = function(time) {
+  this._start = time;
+  this._interval = parseTime(time);
+  return this;
+}
+Graph.prototype.end = Graph.prototype.to = function(time) {
+  this._end = time;
+  return this;
+}
+Graph.prototype.smooth = function(name, factor) {
+  var self = this;
+  return {
+    as: function(newName) {
+      self.cdefs.push('CDEF:'+ newName + '=' + name + ',' + factor + ',TREND');
+      return self;
+    }
+  };
+}
+
+Graph.prototype.title = function(title) {
+  this._title = title;
+  return this;
+}
+Graph.prototype.line = function(name, color) {
+  this.lines.push('LINE:' + name + color);
+  return this;
+}
+Graph.prototype.create = function(file) {
+  var defs = this._rrd._dataSources.map(function(ds) {
+    return 'DEF:' + ds.name + '=' + this._rrd._file + ':' + ds.name + ':AVERAGE';
+  }, this);
+  var cdefs = this.cdefs.map(function(cdef) {
+    return cdef;
+  });
+  console.log(defs);
+  var rrd = spawn('rrdtool',
+    ['graph', file,
+    '--start', this._start]
+    .concat(defs)
+    .concat(this.cdefs)
+    .concat(this.lines));
+}
+
 module.exports = RRD;
