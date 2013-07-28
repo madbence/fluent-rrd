@@ -143,4 +143,19 @@ RRD.prototype.create = function(opt, cb) {
   });
 }
 
+RRD.prototype.update = function(spec, cb) {
+  var rrd = spawn('rrdtool',
+    ['update', this._file]
+    .concat(
+      ['N:' + spec.join(':')]));
+  rrd.on('exit', function(status, sig) {
+    if(status || sig) {
+      return cb && cb({
+        status: status, sig: sig
+      });
+    }
+    cb();
+  })
+}
+
 module.exports = RRD;
