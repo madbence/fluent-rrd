@@ -22,7 +22,7 @@ setInterval(function() {
   var i = (new Date().getTime()/1000).toFixed(0)
   rrd.update(
     [(Math.sin(i*Math.PI/180)+1)*5000,
-    Math.random()*10000], function(err) {
+    Math.max(5000, (i*100)%10000)], function(err) {
       if(err) console.log(err);
       else console.log('Updated!');
     });
@@ -37,11 +37,13 @@ rrd.graph()
   .font('TITLE', 12, 'Anonymous Pro')
   .smooth('foo', '10s')
     .as('foo_smooth')
-  .smooth('bar', '3m')
-    .as('bar_smooth')
+  .smooth('foo_smooth', '1m')
+    .as('foo_smooth2')
+  .smooth('foo_smooth2', '2m')
+    .as('foo_smooth3')
   .line('foo', '#ff000044')
-  .line('bar', '#00ff0044')
-  .line('foo_smooth', '#ff0000')
-  .line('bar_smooth', '#00ff00')
+  .line('foo_smooth', '#ff000066')
+  .line('foo_smooth2', '#ff0000aa')
+  .line('foo_smooth3', '#ff0000')
   .table()
   .create('file.png');
