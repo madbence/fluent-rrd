@@ -78,7 +78,7 @@ Set border width to `width` (default is 2), and optionally its color to `shadea`
 #### `.zoom(zoom)` ####
 Set zoom factor to `zoom`. See `--zoom` for details.
 
-#### `.font(tag, size[, font]) ####
+#### `.font(tag, size[, font])` ####
 Overrides the font for `tag`. Valid `tag` values: `'default'`, `'title'`, `'axis'`, `'unit'`, `'legend'`, `'watermark'`. See `--font` for details.
 
 #### `.fontSize(size)` ####
