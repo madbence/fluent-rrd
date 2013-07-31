@@ -9,6 +9,12 @@ Graph
 ### Time range ###
 
 ### Labels ###
+#### `.title(title)` ####
+Sets graph title to `title`. See `--title` for details.
+
+#### `.vlabel(label)` ####
+Sets vertical label to `label`. See `--vertical-label` for details.
+
 
 ### Size ###
 #### `.width(width)` ####
