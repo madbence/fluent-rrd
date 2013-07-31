@@ -62,3 +62,39 @@ Enable alternative autoscale. `limit` is optional, set to `'min'` or `'max'` to 
 
 #### `.noGridFit()` ####
 Disable grid fitting. See `--no-gridfit` for details.
+
+### Misc ###
+#### `.color(tag, color)` ####
+Override the default color of `tag` to `color`. `tag` can be `'back'`, `'canvas'`, `'shadea'`, `'shadeb'`, `'grid'`, `'mgrid'`, `'font'`, `'axis'`, `'frame'`, `'arrow'`. `color` is a hexa color, with optional alpha component (range is in 00-FF), it must begin with a `#`. See `--color` for details.
+
+#### `.dash(on, off)` ####
+Alias: `.gridDash(on, off)`.
+
+Set grid pattern. `.grid(1,0)` produces uninterrupted grid line, `.grid(1,3)` produces dotted grid. Default is `1,1`. See `--grid-dash` for details.
+
+#### `.border(width[, shadea, shadeb])` ####
+Set border width to `width` (default is 2), and optionally its color to `shadea` and `shadeb` (shorhand for `.border(width).color('shadea', shadea).color('shadeb', shadeb)`). See `--border` for details.
+
+#### `.zoom(zoom)` ####
+Set zoom factor to `zoom`. See `--zoom` for details.
+
+#### `.font(tag, size[, font]) ####
+Overrides the font for `tag`. Valid `tag` values: `'default'`, `'title'`, `'axis'`, `'unit'`, `'legend'`, `'watermark'`. See `--font` for details.
+
+#### `.fontSize(size)` ####
+Shorthand for `.font('default', size)`.
+
+#### `.slope()` ####
+More organic look. See `--slope-mode` for details.
+
+#### `.interlaced()` ####
+Produce interlaced images. See `--interlaced` for details.
+
+#### `.tabWidth(width)` ####
+Set tab width to `width` pixel. Default is `40`.
+
+#### `.base(base)` ####
+Set convert base to `base`. Eg 1KByte is 1024Byte, but 1 kbit is 1000 bit. See `--base` for details.
+
+#### `.watermark(watermark)` ####
+Display string `watermark` at the bottom. See `--watermark` for details.
