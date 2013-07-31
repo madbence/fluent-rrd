@@ -10,12 +10,12 @@ Graph
 #### `.from(time)` ####
 Alias: `.start(time)`.
 
-Sets the start time to `time`. See `--start`, AT-STYLE TIME SPECIFICATION for details about the `time` parameter.
+Set the start time to `time`. See `--start`, AT-STYLE TIME SPECIFICATION for details about the `time` parameter.
 
 #### `.to(time)` ####
 Alias: `.end(time)`.
 
-Sets the end time to `time`. See `--end`, AT-STYLE TIME SPECIFICATION for details about the `time` parameter.
+Set the end time to `time`. See `--end`, AT-STYLE TIME SPECIFICATION for details about the `time` parameter.
 
 #### `.step(time)` ####
 Set resulution to `time` seconds if `time` is `Number`, otherwise it will be converted to seconds, like `'10m' = 600`. See `--step` for details, `parseTime` for accepted time formats.
@@ -23,10 +23,10 @@ Set resulution to `time` seconds if `time` is `Number`, otherwise it will be con
 
 ### Labels ###
 #### `.title(title)` ####
-Sets graph title to `title`. See `--title` for details.
+Set graph title to `title`. See `--title` for details.
 
 #### `.vlabel(label)` ####
-Sets vertical label to `label`. See `--vertical-label` for details.
+Set vertical label to `label`. See `--vertical-label` for details.
 
 
 ### Size ###
@@ -50,12 +50,12 @@ Omit legend, labels, etc. Canvas size is set to `width`x`height` pixels, paramet
 #### `.min(limit, rigid)` ####
 Aliases: `.lower(limit, rigid)`, `.lowerLimit(limit, rigid)`.
 
-Sets y-axis minimum value to `limit`, optionally disable autoscale with `rigid=true`. See `--lower-limit`, `--rigid` for details.
+Set y-axis minimum value to `limit`, optionally disable autoscale with `rigid=true`. See `--lower-limit`, `--rigid` for details.
 
 #### `.max(limit, rigid)` ####
 Aliases: `.upper(limit, rigid)`, `.upperLimit(limit, rigid)`.
 
-Sets y-axis maximum value to `limit`, optionally disable autoscale with `rigid=true`. See `--upper-limit`, `--rigid` for details.
+Set y-axis maximum value to `limit`, optionally disable autoscale with `rigid=true`. See `--upper-limit`, `--rigid` for details.
 
 #### `.altAutoscale(limit)` ####
 Enable alternative autoscale. `limit` is optional, set to `min` or `max` to enable alt-autoscale only for lower or upper limits. See `--alt-autoscale` for details.
