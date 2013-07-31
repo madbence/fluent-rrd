@@ -7,6 +7,19 @@ Graph
 -----
 
 ### Time range ###
+#### `.from(time)` ####
+Alias: `.start(time)`.
+
+Sets the start time to `time`. See `--start`, AT-STYLE TIME SPECIFICATION for details about the `time` parameter.
+
+#### `.to(time)` ####
+Alias: `.end(time)`.
+
+Sets the end time to `time`. See `--end`, AT-STYLE TIME SPECIFICATION for details about the `time` parameter.
+
+#### `.step(time)` ####
+Set resulution to `time` seconds if `time` is `Number`, otherwise it will be converted to seconds, like `'10m' = 600`. See `--step` for details, `parseTime` for accepted time formats.
+
 
 ### Labels ###
 #### `.title(title)` ####
