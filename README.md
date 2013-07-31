@@ -11,6 +11,21 @@ Graph
 ### Labels ###
 
 ### Size ###
+#### `.width(width)` ####
+Set canvas width to `width` pixels. See `--width` for details.
+
+#### `.height(height)` ####
+Set canvas height to `height` pixels. See `--height` for details.
+
+#### `.size(width, height)` ####
+Set canvas size to `width`x`height` pixels. Shorthand function for `.width(width).height(height)`.
+
+#### `.fullSize(width, height)` ####
+Set the *image* size (instead of the canvas) to `width`x`height` pixels. Parameters are optional. See `--full-size-mode` for details.
+
+#### `.thumbnail(width, height)` ####
+Omit legend, labels, etc. Canvas size is set to `width`x`height` pixels, parameter defaults are `256`x`32`. See `--only-graph` for details.
+
 
 ### Limits ###
 #### `.min(limit, rigid)` ####
