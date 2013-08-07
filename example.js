@@ -20,29 +20,48 @@ var rrd = new RRD('foo')
 var i = 0;
 setInterval(function() {
   var i = (new Date().getTime()/1000).toFixed(0);
-  rrd.update(
+  /*rrd.update(
     [(Math.sin(i*Math.PI/180)+1)*5000,
     Math.max(5000, (i*50)%10000)], function(err) {
       if(err) console.log(err);
       else console.log('Updated!');
-    });
+    });*/
+  daemon.update('/home/lennon/rrd/foo',
+    [(Math.sin(i*Math.PI/180)+1)*5000, Math.max(5000, (i*50)%10000)]);
 }, 1000);
 
-rrd.graph()
-  .from('-1h')
-  .title('Example graph with random values')
-  .watermark('%a')
-  .vlabel('Awesomeness')
-  .size(600, 150)
-  .smooth('foo', '10s')
-    .as('foo_smooth')
-  .smooth('foo_smooth', '1m')
-    .as('foo_smooth2')
-  .smooth('foo_smooth2', '2m')
-    .as('foo_smooth3')
-  .line('foo', '#ff000044')
-  .line('foo_smooth', '#ff000066')
-  .line('foo_smooth2', '#ff0000aa')
-  .line('foo_smooth3', '#ff0000')
-  .table()
-  .create('file.png');
+var daemon = rrd
+  .daemon()
+  .allow(['update'])
+  .listen(1338, '127.0.0.1')
+  .interval(10)
+  .start();
+
+function draw() {
+  rrd.graph()
+    .from('-1h')
+    .title('Example graph with random values')
+    .watermark('%a')
+    .vlabel('Awesomeness')
+    .size(600, 150)
+    .smooth('foo', '10s')
+      .as('foo_smooth')
+    .smooth('foo_smooth', '1m')
+      .as('foo_smooth2')
+    .smooth('foo_smooth2', '2m')
+      .as('foo_smooth3')
+    .line('foo', '#ff000044')
+    .line('foo_smooth', '#ff000066')
+    .line('foo_smooth2', '#ff0000aa')
+    .line('foo_smooth3', '#ff0000')
+    .table()
+    .create('file.png');
+}
+
+setInterval(draw, 10000);
+draw();
+
+process.on('SIGINT', function() {
+  daemon._daemonProcess.kill('SIGKILL');
+  process.exit(0);
+});
